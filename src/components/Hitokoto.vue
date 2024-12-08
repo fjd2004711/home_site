@@ -44,15 +44,14 @@ const hitokotoData = reactive({
   from: "無名",
 });
 
-// 获取一言数据
 const getHitokotoData = async () => {
   try {
     const result = await getHitokoto();
-    hitokotoData.text = result.hitokoto;
-    hitokotoData.from = result.from;
+    hitokotoData.text = result.content; // 修改为新API的字段
+    hitokotoData.from = `${result.origin} - ${result.author}`; // 修改为新API的字段
   } catch (error) {
     ElMessage({
-      message: "一言获取失败",
+      message: "每日一言获取失败",
       icon: h(Error, {
         theme: "filled",
         fill: "#efefef",
@@ -63,9 +62,7 @@ const getHitokotoData = async () => {
   }
 };
 
-// 更新一言数据
 const updateHitokoto = () => {
-  // 防抖
   debounce(() => {
     getHitokotoData();
   }, 500);

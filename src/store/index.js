@@ -91,3 +91,8 @@ export const mainStore = defineStore("main", {
     ],
   },
 });
+
+export const getHitokoto = async () => {
+  const res = await fetch("https://api.xygeng.cn/openapi/one");
+  return await res.json();
+};
